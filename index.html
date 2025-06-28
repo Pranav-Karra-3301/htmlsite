@@ -317,14 +317,20 @@
     </div>
 
     <script>
-        // Animation trigger on scroll and load
+        // Animation trigger for individual section loading
         function triggerAnimations() {
-            const elements = document.querySelectorAll('.animate-blur-fade-light');
+            const sections = [
+                document.querySelector('h1.animate-blur-fade-light'),
+                document.querySelector('.intro-container.animate-blur-fade-light'),
+                ...document.querySelectorAll('.section.animate-blur-fade-light')
+            ];
             
-            elements.forEach((element, index) => {
-                setTimeout(() => {
-                    element.classList.add('active');
-                }, index * 300);
+            sections.forEach((section, index) => {
+                if (section) {
+                    setTimeout(() => {
+                        section.classList.add('active');
+                    }, index * 400);
+                }
             });
         }
 
