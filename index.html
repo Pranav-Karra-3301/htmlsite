@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pranav Karra</title>
+    <link rel="icon" type="image/png" href="pranav_karra.png">
     <style>
         * {
             margin: 0;
@@ -26,7 +27,7 @@
             opacity: 0;
             filter: blur(4px);
             transform: translateY(5px);
-            transition: opacity 0.5s ease-out, filter 0.5s ease-out, transform 0.5s ease-out;
+            transition: opacity 1.2s ease-out, filter 1.2s ease-out, transform 1.2s ease-out;
         }
 
         .animate-blur-fade-light.active {
@@ -153,6 +154,21 @@
             display: inline;
         }
 
+        /* Profile Image */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            filter: grayscale(100%);
+            display: block;
+            margin: 0 auto;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             body {
@@ -162,6 +178,10 @@
     </style>
 </head>
 <body>
+    <div class="profile-container animate-blur-fade-light">
+        <img src="pranav_karra.png" alt="Pranav Karra" class="profile-image">
+    </div>
+    
     <h1 class="animate-blur-fade-light">About</h1>
 
     <div class="animate-blur-fade-light">
@@ -291,7 +311,7 @@
             elements.forEach((element, index) => {
                 setTimeout(() => {
                     element.classList.add('active');
-                }, index * 150);
+                }, index * 300);
             });
         }
 
