@@ -1,355 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pranav Karra</title>
-    <link rel="icon" type="image/png" href="pranav_karra.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: white;
-            padding: 40px 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+<title>pranav karra</title>
+<link rel="icon" type="image/png" href="pranav_karra.png">
 
-        /* Animation Classes */
-        .animate-blur-fade-light {
-            opacity: 0;
-            filter: blur(4px);
-            transform: translateY(5px);
-            transition: opacity 1.2s ease-out, filter 1.2s ease-out, transform 1.2s ease-out;
-        }
+<!-- ────── type & colour tokens ──────  -->
+<style>
+:root{
+  /*  typography  */
+  --ff-sans     : Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                  Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --ff-mono     : "SF Mono", Menlo, Consolas, monospace;
 
-        .animate-blur-fade-light.active {
-            opacity: 1;
-            filter: blur(0px);
-            transform: translateY(0);
-        }
+  /*  palette  (hsl so you can easily tweak lightness)  */
+  --hue-primary : 218;             /* bluish-grey */
+  --c-bg        : hsl(0 0% 99%);   /* almost-white page */
+  --c-text      : hsl(var(--hue-primary) 15% 18%);
+  --c-muted     : hsl(var(--hue-primary) 12% 45%);
+  --c-border    : hsl(var(--hue-primary) 12% 90%);
+  --c-link      : hsl(var(--hue-primary) 80% 40%);
+  --c-link-hover: hsl(var(--hue-primary) 80% 33%);
+  
+  /*  rhythm  */
+  --size-step-0 : .875rem; /* 14 px  */
+  --size-step-1 : 1.125rem;/* 18 px  */
+  --size-step-2 : 1.625rem;/* 26 px  */
 
-        h1 {
-            font-size: 24px;
-            font-weight: normal;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
+  --w-reading   : 44rem;   /*  ~700 px */
+}
 
-        .intro-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
+/* ────── reset / layout ────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--ff-sans);
+  background:var(--c-bg);
+  color:var(--c-text);
+  font-size:var(--size-step-0);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:8vmin 6vmin;
+  max-width:var(--w-reading);
+  margin-inline:auto;
+}
+section+section{margin-top:6rem}
 
-        .intro-text {
-            flex: 1;
-        }
+/* ────── headings & copy ────── */
+h1,h2,h3{font-weight:500;font-family:var(--ff-sans);letter-spacing:-.03em}
+h1{font-size:var(--size-step-2);margin-bottom:2.5rem;text-transform:lowercase}
+h2{font-size:var(--size-step-1);margin:3rem 0 1.75rem;text-transform:lowercase}
+h3{font-size:1rem;margin:1.75rem 0 .5rem}
 
-        h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 40px 0 20px 0;
-        }
+p,li{max-width:60ch}
+p{margin-bottom:1.5rem}
 
-        h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 20px 0 10px 0;
-        }
+ul{margin:0 0 1.5rem 1.25rem}
+li+li{margin-top:.4rem}
 
-        p {
-            margin-bottom: 20px;
-            font-size: 16px;
-            line-height: 1.6;
-        }
+a{
+  color:var(--c-link);
+  text-underline-offset:2px;
+  text-decoration-thickness:1px;
+  transition:color .2s;
+}
+a:hover{color:var(--c-link-hover);text-decoration:none}
 
-        .intro {
-            font-size: 16px;
-            margin-bottom: 40px;
-        }
+/* ────── subtle borders & dividers ────── */
+hr, .rule{
+  border:none;border-top:1px solid var(--c-border);
+  margin:4rem 0;
+}
 
-        .section {
-            margin-bottom: 40px;
-        }
+/* ────── image & flex intro block ────── */
+.intro{
+  display:flex;
+  align-items:flex-start;
+  gap:1.75rem;
+}
+@media (max-width:42rem){.intro{flex-direction:column;align-items:center}}
 
-        /* Links */
-        a {
-            color: #333;
-            text-decoration: underline;
-        }
+.profile-image{
+  width:72px;height:72px;border-radius:12px;flex-shrink:0;
+  filter:grayscale(100%);object-fit:cover;
+}
 
-        a:hover {
-            text-decoration: none;
-        }
+/* ────── meta text (dates, places, authors) ────── */
+.meta{color:var(--c-muted);font-family:var(--ff-mono);font-size:.75rem}
 
-        /* Experience and Publications */
-        .experience-item, .publication-item {
-            margin-bottom: 30px;
-        }
-
-        .experience-header {
-            margin-bottom: 5px;
-        }
-
-        .company-title {
-            font-weight: 600;
-            display: inline;
-        }
-
-        .position {
-            font-style: italic;
-            display: inline;
-        }
-
-        .date-location {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .publication-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .publication-authors {
-            font-style: italic;
-            margin-bottom: 5px;
-        }
-
-        .publication-date {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            margin: 10px 0 20px 20px;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 5px;
-        }
-
-        /* Projects */
-        .project-section {
-            margin-bottom: 20px;
-        }
-
-        .project-category {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .project-item {
-            margin-bottom: 15px;
-        }
-
-        .project-title {
-            font-weight: 600;
-            display: inline;
-        }
-
-        .project-description {
-            display: inline;
-        }
-
-        /* Profile Image */
-        .profile-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
-            filter: grayscale(100%);
-            flex-shrink: 0;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-            }
-            
-            .intro-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .profile-image {
-                order: -1;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+/* ────── staggered blur-fade loader ────── */
+@keyframes blurFade{
+  0%{opacity:0;filter:blur(6px) translateY(6px)}
+  100%{opacity:1;filter:blur(0) translateY(0)}
+}
+[data-animate]{
+  opacity:0;filter:blur(6px) translateY(6px);
+}
+[data-animate="in"]{
+  animation:blurFade 1.2s cubic-bezier(.22,1,.36,1) forwards;
+}
+/*  janky little loader bar  */
+.loader{
+  position:fixed;inset-inline:0;top:0;height:2px;
+  background:var(--c-link);
+  transform:scaleX(0);transform-origin:left;
+  animation:loader 1.25s ease-out forwards;
+}
+@keyframes loader{
+  80%{transform:scaleX(.92)}
+  100%{transform:scaleX(1)}
+}
+</style>
 </head>
+
 <body>
-    <h1 class="animate-blur-fade-light">About</h1>
 
-    <div class="intro-container animate-blur-fade-light">
-        <div class="intro-text">
-            <p class="intro">Hi, I'm Pranav.</p>
-            <p>I'm a third year Penn State CS major interested in AI interpretability and alignment research. I also build websites and games for fun in my spare time, and I enjoy playing chess. I am the president of <em>ml@psu</em>, and I also help build vision systems for battle bots. I'm currently working under Dr. Rui Zhang in the penn state nlp lab and collaborating with Dr. Lee Dongwon.</p>
-        </div>
-        <img src="pranav_karra.png" alt="Pranav Karra" class="profile-image">
-    </div>
+<div class="loader" aria-hidden="true"></div>
 
-    <div class="section animate-blur-fade-light">
-        <h2>Publications</h2>
-        
-        <div class="publication-item">
-            <div class="publication-title"><a href="#">MoE Lens - An Expert Is All You Need</a></div>
-            <div class="publication-authors">Marmik Chaudhari, Idhant Gulati, Nishkal Hundia, Pranav Karra, Shivam Raval</div>
-            <div class="publication-date">Published: March 5, 2025</div>
-            <p>We study expert specialization in DeepSeekMoE and find that a few specialized experts can effectively approximate the full model's performance, indicating potential for inference improvements.</p>
-        </div>
-    </div>
+<h1 data-animate>about</h1>
 
-    <div class="section animate-blur-fade-light">
-        <h2>Experience</h2>
-        
-        <div class="experience-item">
-            <div class="experience-header">
-                <span class="company-title"><a href="#">Penn State Robo X</a></span> - <span class="position">Computer Vision Team Lead</span>
-            </div>
-            <div class="date-location">sep 2024 - present, State College, PA</div>
-            <ul>
-                <li>Lead a 12-member team, ranked #8 in North America among 25 universities in DJI Robomaster Championships</li>
-                <li>Developing autonomous navigation system integrating LiDAR-based SLAM with ROS</li>
-                <li>Built multi-object tracking systems using Kalman filters and traditional CV techniques</li>
-                <li>Created real-time scoring system using OpenCV</li>
-            </ul>
-        </div>
+<!-- ────── intro ────── -->
+<div class="intro" data-animate>
+  <div>
+    <p>hi, i’m pranav.</p>
+    <p>i’m a third-year penn state CS major interested in AI interpretability and alignment
+       research. i also build websites &amp; games for fun, and enjoy chess. president of
+       <em>ml@psu</em>; vision systems builder for battle bots. currently working with
+       Dr&nbsp;Rui&nbsp;Zhang and Dr&nbsp;Lee&nbsp;Dongwon in the PSU NLP lab.</p>
+  </div>
+  <img src="pranav_karra.png" alt="Pranav Karra" class="profile-image">
+</div>
 
-        <div class="experience-item">
-            <div class="experience-header">
-                <span class="company-title"><a href="#">Machine Learning @ Penn State</a></span> - <span class="position">President</span>
-            </div>
-            <div class="date-location">sep 2024 - present, State College, PA</div>
-            <ul>
-                <li>Founded and serve as President of ML@PSU, managing 120 active members</li>
-                <li>Curated 500+ machine learning resources for club members</li>
-                <li>Spearhead speaker series featuring PhD students, professors, and industry professionals</li>
-            </ul>
-        </div>
+<!-- ────── publications ────── -->
+<section data-animate>
+  <h2>publications</h2>
 
-        <div class="experience-item">
-            <div class="experience-header">
-                <span class="company-title"><a href="#">ACM MLPSU</a></span> - <span class="position">Captain</span>
-            </div>
-            <div class="date-location">sep 2024 - dec 2024, State College, PA</div>
-            <ul>
-                <li>Lead weekly machine learning workshops for 20 recurring students</li>
-                <li>Cover topics including regression techniques and clustering analysis</li>
-                <li>Create interactive presentations using Reveal.js and Quarto</li>
-            </ul>
-        </div>
+  <article>
+    <h3><a href="#">MoE Lens — An Expert Is All You Need</a></h3>
+    <p class="meta">Marmik Chaudhari, Idhant Gulati, Nishkal Hundia, <strong>Pranav Karra</strong>, Shivam Raval • Mar 5 2025</p>
+    <p>We study expert specialization in DeepSeekMoE and find that a few specialized experts
+       can effectively approximate the full model’s performance, indicating potential for
+       inference improvements.</p>
+  </article>
+</section>
 
-        <div class="experience-item">
-            <div class="experience-header">
-                <span class="company-title">Penn State Campus Recreation</span> - <span class="position">E-Sports Attendant</span>
-            </div>
-            <div class="date-location">dec 2023 - present, State College, PA</div>
-            <ul>
-                <li>Diagnose and resolve hardware/software issues across 50+ PCs and consoles</li>
-                <li>Manage inventory of PC parts, consoles, games, and peripherals</li>
-                <li>Assist in hiring and training new esports attendants</li>
-            </ul>
-        </div>
+<!-- ────── experience ────── -->
+<section data-animate>
+  <h2>experience</h2>
 
-        <div class="experience-item">
-            <div class="experience-header">
-                <span class="company-title"><a href="#">Manipal Institute of Technology</a></span> - <span class="position">Machine Learning Intern</span>
-            </div>
-            <div class="date-location">jul 2024 - aug 2024, Manipal, Karnataka, India</div>
-            <ul>
-                <li>Contributed to CVD detection project using CT scans</li>
-                <li>Developed optimized HOG3D algorithm reducing processing time by 75%</li>
-                <li>Built 3D CNN classifier for enhanced CVD detection</li>
-                <li>Worked with NumPy, SimpleITK, Plotly, and other ML tools</li>
-            </ul>
-        </div>
-    </div>
+  <article>
+    <h3><a href="#">penn state robo x</a> · computer vision team lead</h3>
+    <p class="meta">sep 2024 – present · state college, PA</p>
+    <ul>
+      <li>lead a 12-member team, ranked #8 in North America (DJI Robomaster)</li>
+      <li>developing autonomous navigation (LiDAR-based SLAM + ROS)</li>
+      <li>multi-object tracking with Kalman filters &amp; classic CV techniques</li>
+      <li>real-time scoring system with OpenCV</li>
+    </ul>
+  </article>
 
-    <div class="section animate-blur-fade-light">
-        <h2>Projects</h2>
-        
-        <div class="project-section">
-            <div class="project-category">Ongoing</div>
-            <div class="project-item">
-                <span class="project-title"><a href="#">computer vision based musical instrument</a></span> - Exploring gesture-based musical expression through real-time computer vision and audio processing — ongoing
-            </div>
-        </div>
+  <article>
+    <h3><a href="#">machine learning @ penn state</a> · president</h3>
+    <p class="meta">sep 2024 – present · state college, PA</p>
+    <ul>
+      <li>founded &amp; lead ML@PSU (120 active members)</li>
+      <li>curated 500+ machine-learning resources</li>
+      <li>host speaker series (PhDs, professors, industry)</li>
+    </ul>
+  </article>
 
-        <div class="project-section">
-            <div class="project-category">Completed</div>
-            <div class="project-item">
-                <span class="project-title"><a href="#">natural disaster information site framework</a></span> - web framework for rapid deployment of natural disaster info sites
-            </div>
-            <div class="project-item">
-                <span class="project-title"><a href="#">owly</a></span> - ai-powered screenshot organizer using computer vision
-            </div>
-            <div class="project-item">
-                <span class="project-title"><a href="#">hog3d - histogram of oriented gradients 3d</a></span> - 3d feature extraction for coronary arteries from ct scans
-            </div>
-            <div class="project-item">
-                <span class="project-title"><a href="#">goodlinks raycast extension</a></span> - raycast extension for the goodlinks bookmark manager
-            </div>
-            <div class="project-item">
-                <span class="project-title"><a href="#">skhd raycast extension</a></span> - raycast extension for macos keyboard daemon skhd
-            </div>
-        </div>
-    </div>
+  <!-- keep adding the rest … -->
+</section>
 
-    <div class="section animate-blur-fade-light">
-        <h2>Contact</h2>
-        <p>I'm always looking for collaborators interested in interpretability, alignment, and the future of safe ai. Reach out about my work, writing, or working together.</p>
-        <p><a href="#">E-mail</a> <a href="#">Twitter</a> <a href="#">Substack</a></p>
-    </div>
+<!-- ────── projects ────── -->
+<section data-animate>
+  <h2>projects</h2>
 
-    <script>
-        // Animation trigger for individual section loading
-        function triggerAnimations() {
-            const sections = [
-                document.querySelector('h1.animate-blur-fade-light'),
-                document.querySelector('.intro-container.animate-blur-fade-light'),
-                ...document.querySelectorAll('.section.animate-blur-fade-light')
-            ];
-            
-            sections.forEach((section, index) => {
-                if (section) {
-                    setTimeout(() => {
-                        section.classList.add('active');
-                    }, index * 400);
-                }
-            });
-        }
+  <h3>ongoing</h3>
+  <p><a href="#">computer-vision musical instrument</a> — gesture-based musical expression
+     via real-time CV &amp; audio processing.</p>
 
-        // Trigger animations on page load
-        window.addEventListener('load', triggerAnimations);
+  <h3>completed</h3>
+  <ul>
+    <li><a href="#">natural-disaster info-site framework</a></li>
+    <li><a href="#">owly</a> — AI-powered screenshot organiser</li>
+    <li><a href="#">hog3d</a> — 3-D HOG for coronary CT scans</li>
+    <li><a href="#">goodlinks raycast extension</a></li>
+    <li><a href="#">skhd raycast extension</a></li>
+  </ul>
+</section>
 
-        // Optional: Re-trigger on scroll for elements that come into view
-        function handleScroll() {
-            const elements = document.querySelectorAll('.animate-blur-fade-light:not(.active)');
-            
-            elements.forEach(element => {
-                const rect = element.getBoundingClientRect();
-                if (rect.top < window.innerHeight * 0.8) {
-                    element.classList.add('active');
-                }
-            });
-        }
+<!-- ────── contact ────── -->
+<section data-animate>
+  <h2>contact</h2>
+  <p>always excited to chat about interpretability, alignment, and the future of safe AI.
+     reach out about my work, writing, or teaming up.</p>
+  <p><a href="#">email</a> · <a href="#">twitter</a> · <a href="#">substack</a></p>
+</section>
 
-        window.addEventListener('scroll', handleScroll);
-    </script>
+<!-- ────── stagger-on-scroll script ────── -->
+<script>
+(() => {
+  const els = [...document.querySelectorAll('[data-animate]')];
+  const onView = () => {
+    els.forEach(el => {
+      if (el.dataset.animate === 'in') return;
+      const {top} = el.getBoundingClientRect();
+      if (top < window.innerHeight * 0.85){
+        el.dataset.animate = 'in';
+      }
+    });
+  };
+  onView();   /* fire once on load  */
+  window.addEventListener('scroll', onView, {passive:true});
+})();
+</script>
+
 </body>
 </html>
